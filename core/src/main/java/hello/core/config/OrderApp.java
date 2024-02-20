@@ -1,7 +1,8 @@
-package hello;
+package hello.core.config;
 
 import hello.core.member.Member;
 import hello.core.member.MemberGrade;
+import hello.core.order.FixDiscountPrice;
 import hello.core.order.Order;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
@@ -12,8 +13,9 @@ import hello.core.service.MemberServiceImpl;
 
 public class OrderApp {
     public static void main(String[] args) {
-        OrderService orderService = new OrderServiceImpl();
-        MemberService memberService = new MemberServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        OrderService orderService = appConfig.orderService();
+        MemberService memberService = appConfig.memberService();
 
         long memberId = 1L;
         Member member = new Member(1L, "황상익", MemberGrade.BASIC);
