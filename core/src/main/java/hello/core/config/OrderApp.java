@@ -10,12 +10,18 @@ import hello.core.repository.MemberRepository;
 import hello.core.repository.MemoryMemberRepository;
 import hello.core.service.MemberService;
 import hello.core.service.MemberServiceImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class OrderApp {
     public static void main(String[] args) {
-        AppConfig appConfig = new AppConfig();
-        OrderService orderService = appConfig.orderService();
-        MemberService memberService = appConfig.memberService();
+//        AppConfig appConfig = new AppConfig();
+//        OrderService orderService = appConfig.orderService();
+//        MemberService memberService = appConfig.memberService();
+
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        OrderService orderService = ac.getBean("OrderService", OrderService.class);
+        MemberService memberService = ac.getBean("MemberService", MemberService.class);
 
         long memberId = 1L;
         Member member = new Member(1L, "황상익", MemberGrade.BASIC);
