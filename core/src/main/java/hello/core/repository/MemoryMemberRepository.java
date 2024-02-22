@@ -5,7 +5,14 @@ import hello.core.member.Member;
 import java.util.HashMap;
 
 public class MemoryMemberRepository implements MemberRepository{
+    private final MemberRepository memberRepository;
+
+    public MemoryMemberRepository(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
+
     private static HashMap<Long, Member> store = new HashMap<>();
+
 
 
     @Override

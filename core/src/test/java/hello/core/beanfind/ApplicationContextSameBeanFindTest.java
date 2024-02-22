@@ -56,12 +56,12 @@ public class ApplicationContextSameBeanFindTest {
 
         @Bean
         public MemberRepository memberRepository(){
-            return new MemoryMemberRepository();
+            return new MemoryMemberRepository(memberRepository());
         }
 
         @Bean
         public MemberRepository memberRepository2(){
-            return new MemoryMemberRepository();
+            return new MemoryMemberRepository(memberRepository2());
         }
     }
 }
