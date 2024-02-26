@@ -127,3 +127,40 @@ private 생성자로 자식 클래스 만들기 어려움
 스프링 빈으로 등록, 반환하는 코드가 동적으로 생성 
 만약 Configuration 적용하지 않고 사용하면, Bean만 적용할 경우 singleton 깨진다
 
+// <8>
+컴포넌트 스캔과 의존관계 자동 주입 시작 
+스프링 빈을 등록할때 자바의 코드의 @Bean이나 XML의 <bean>등을 통해서 설정
+스프링은 설정 정보가 없어도 자동을 스프링 빈을 등록하는 컴포넌트 스캔이라는 기능이 존제
+의존관계 자동 주입 해주는 @Autowired라는 기능 제공 
+
+@ComponentScan을 사용하면 @Component가 붙은 모든 클래스를 스프링 빈으로 등록 
+이대 스프링 빈의 기본 이름은 클래스명을 사용, 맨 앞글자만 소문자 사용 
+@Autowired를 지정하면 스프링 컨테이너가 자동으로 해당 스프링 빈을 찾아 주입 = getBaen과 동일 
+
+탐색 위치와 기본 scan 대상 
+필요한 위치부터 탐색 할 수 있음 basePackages = " " -> 하위 패키지를 모두 탐색 
+
+ComponentScan 기본 대상 
+@Component : 컴포넌트 스캔에서 사용 
+@Controller : 스프링 MVC 컨트롤러에서 사용  / 스프링 MVC 컨트롤러로 인식 
+@Service : 스프링 비즈니스 로직에서 사용 / 비즈니스 계층을 인식 
+@Repository : 스프링 데이터 넙근 계층에서 사용 / 데이터 계층 예외를 스프링 예외로 변환  
+@Configuration : 스프링 설정 정보에서 사용 / 스프링 빈이 싱글톤을 유지 
+
+Filter 
+includeFilter : 컴포넌트 스캔 대상을 추가로 지정 
+excludeFilter : 컴포넌트 스캔에서 제외 할 대상을 지정 
+
+FilterType 옵션
+ANNOTATION : 기본값 애노테이션을 인식 해서 동작 
+ASSIGNABLE_TYPE : 지정한 타입과 자식 타입을 인식해서 동작 
+ASPECTJ : AspectJ 패턴 사용 
+CUSTOM : TypeFilter 라는 인터페이스를 구현 
+REGEX : 정규식 표현 
+
+중복 등록 & 충돌 
+자동 빈 등록 vs 자동 빈 등록 
+컴포넌트 스캔에 의해 자동으로 스프링 빈이 등록이 되는데 이름이 같은 경우 스프링은 오류를 발생 
+
+수동 빈 등록 vs 자동 빈 등록 
+수동이 우선권을 갖는다. 
