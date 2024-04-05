@@ -6,14 +6,14 @@ public class Order {
     private int productPrice;
     private int discountPrice;
 
-        public Order(long id, String productName, int productPrice, int discountPrice) {
+    public Order(long id, String productName, int productPrice, int discountPrice) {
         this.id = id;
         this.productName = productName;
         this.productPrice = productPrice;
         this.discountPrice = discountPrice;
     }
 
-    public int calculatPrice(){
+    public int calculate() {
         return productPrice - discountPrice;
     }
 

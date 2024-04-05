@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 
 @Component
-@RequiredArgsConstructor
 public class MemoryMemberRepository implements MemberRepository{
 
     private static HashMap<Long, Member> store = new HashMap<>();

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Map;
@@ -22,20 +23,23 @@ public class ApplicationContextExtendsFindTest {
     AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(TestConfig.class);
 
     @Configuration
-    private class TestConfig {
+    static class TestConfig {
 
-        public DiscountPolicy RateDiscountPolicy() {
+        @Bean
+        public DiscountPolicy rateDiscountPolicy() {
             return new RateDiscountPrice();
         }
 
-        public DiscountPolicy FixDiscountPolicy() {
+        @Bean
+        public DiscountPolicy fixDiscountPolicy() {
             return new FixDiscountPrice();
         }
     }
 
     @Test
-    @DisplayName("부모 타입 조회시, 자식 둘 이상 존재하면 중복 오류 발생")
-    void findBeanByParent() {
+    @DisplayName("부모 타입으로 조회시, 자식이 둘 이상 있으면, 중복 오류가 발생한다")
+    void findBeanByParentTypeDuplicate() {
+        //DiscountPolicy bean = ac.getBean(DiscountPolicy.class);
         assertThrows(NoUniqueBeanDefinitionException.class, () ->
                 ac.getBean(DiscountPolicy.class));
     }
@@ -58,7 +62,7 @@ public class ApplicationContextExtendsFindTest {
     @DisplayName("부모티입으로 모두 조회")
     void findBeanByParentAllType(){
         Map<String, DiscountPolicy> beansOfType = ac.getBeansOfType(DiscountPolicy.class);
-        assertThat(beansOfType).isInstanceOf(DiscountPolicy.class);
+        assertThat(beansOfType.size()).isEqualTo(2);
         for (String key : beansOfType.keySet()) {
             System.out.println("key = " + key + " value = " + beansOfType.keySet());
         }

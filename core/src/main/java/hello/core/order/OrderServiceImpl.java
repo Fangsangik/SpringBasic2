@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService{
 
+    @Autowired
     private final MemberRepository repository;
+    @Autowired
     private final DiscountPolicy rateDiscountPolicy;
 
     @Override

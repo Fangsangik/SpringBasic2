@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ApplicationContextSameBeanFindTest {
     AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(SameBeanConfig.class);
 
+
     @Test
     @DisplayName("타입으로 조회시 같은 타입이 둘 있으면 중복 오류 ")
     void duplicateTypeBean() {
@@ -27,7 +28,7 @@ public class ApplicationContextSameBeanFindTest {
     @Test
     @DisplayName("타입으로 조회시 같은 타입이 둘 이상이면 빈 이름을 지정")
     void findBeanByName() {
-        MemberRepository repository = ac.getBean("memberRepository", MemberRepository.class);
+        MemberRepository repository = ac.getBean("memberRepository1", MemberRepository.class);
         assertThat(repository).isInstanceOf(MemberRepository.class);
     }
 
@@ -47,12 +48,17 @@ public class ApplicationContextSameBeanFindTest {
     }
 
     @Configuration
-    private class SameBeanConfig {
+    static class SameBeanConfig {
 
         @Bean
-        public MemberRepository memberRepository() {
+        public MemberRepository memberRepository1() {
             return new MemoryMemberRepository();
 
+        }
+
+        @Bean
+        public MemberRepository memberRepository2(){
+            return new MemoryMemberRepository();
         }
     }
 }
